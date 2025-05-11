@@ -1,0 +1,15 @@
+{
+  "source": "mobile_app",
+  "version": "1.0",
+  "fields": {
+    "patient_id": "string",
+    "timestamp": "datetime",
+    "vitals": {
+      "heart_rate": "integer",
+      "blood_pressure": "string",
+      "temperature": "float"
+    },
+    "location": "string"
+  },
+  "description": "Schema for mobile app data sent to Kafka for MedPlat ingestion."
+}
