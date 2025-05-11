@@ -2,13 +2,12 @@ from kafka import KafkaConsumer
 import json
 import psycopg2
 
-# Connect to PostgreSQL
 try:
     conn = psycopg2.connect(
         dbname="postgres",
         user="postgres",
         password="pass",
-        host="localhost",  # Use localhost since port is mapped
+        host="localhost",  
         port="5432"
     )
     cursor = conn.cursor()
@@ -17,7 +16,6 @@ except Exception as e:
     print(f"Error connecting to PostgreSQL: {e}")
     exit(1)
 
-# Create table
 try:
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS patient_data (
@@ -37,7 +35,6 @@ except Exception as e:
     conn.rollback()
     exit(1)
 
-# Connect to Kafka
 try:
     consumer = KafkaConsumer('patient_data', bootstrap_servers='localhost:9092', auto_offset_reset='earliest')
     print("Connected to Kafka!")
@@ -67,6 +64,5 @@ for msg in consumer:
         print(f"Error processing message: {e}")
         conn.rollback()
 
-# Close connections (optional, as script runs indefinitely)
 cursor.close()
 conn.close()
